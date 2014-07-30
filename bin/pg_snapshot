@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+function usage {
+  echo '
+  USAGE: pg_snapshot <source_db> <target_tb>
+'
+}
+
+if [[ -z $1 || -z $2 ]]; then
+  usage
+fi
+
+source_db=$1
+target_db=$2
+
+pg_dump --format c $source_db | pg_restore --clean --dbname=$target_db
