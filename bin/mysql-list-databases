@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+usage() {
+  echo "Usage: MYSQL_USERNAME=username MYSQL_PASSWORD=password mysql-list-databases"
+  exit 1
+}
+if [[ -z $MYSQL_USERNAME ]]; then
+  usage
+fi
+if [[ ! -z $MYSQL_PASSWORD ]]; then
+  MYSQL_PASSWORD="-p${MYSQL_PASSWORD}"
+fi
+mysql -u$MYSQL_USERNAME $MYSQL_PASSWORD -e'show databases' -s 2>/dev/null | grep -v 'Database'
